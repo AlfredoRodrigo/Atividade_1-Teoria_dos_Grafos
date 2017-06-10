@@ -1,0 +1,9 @@
+# count = -1
+        #
+        # for x in self.matriz:
+        #     count += 1
+        #     for y in range(count):
+        #         x[y] = "-"
+
+        # for x in matriz:
+        #     print(x)
