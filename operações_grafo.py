@@ -24,7 +24,7 @@ while True:
 
     while condition == 2:
         temp_g = []
-        temp_a = input("Informe as arestas e, entre parênteses, os vértices que essa aresta conecta, em ordem, separados por vírgula (ex.: aresta(vértice1-vértice2)): ")
+        temp_a = input("Informe as arestas e, entre parênteses, os vértices que essa aresta conecta, em ordem, separados por vírgula e espaço (ex.: aresta1(vértice1-vértice2)): ")
         temp_g = temp_a.split(", ")
         nome_da_aresta = []
         vértice1 = []
@@ -64,11 +64,20 @@ while True:
         grafo = Grafo(vértices, dicionário)
         print(grafo)
 
-    #a): Verificar vértices não adjacentes:
-    naoAd = grafo.encontraNaoAdjacentes()
-    print(naoAd)
+    #a): Encontra todos os pares de vértices não adjacentes:
+    print("a): Vértices não adjacentes: ", grafo.encontraNaoAdjacentes())
+
+    #b): Verifica se existe algum laço, ou seja, um vértice adjacente a ele mesmo:
+    print("b): Existe laço?: ", grafo.existeLaço())
+
+    #c): Verifica se existe alguma aresta paralela:
+    print("c): Existe aresta paralela?: ", grafo.existeArestaParalela())
+
+    #d): Verifica o grau de um vértice
+    vertice = input("Informe um vértice que deseja obter o grau: ")
+    print("d): Grau do vértice", vertice, ": ", grafo.calculaGrauVertice(vertice))
+
+
     break
 
 # a1(A-B) , a2(B-C), a3(A-C)
-
-temp_g = [["a1", "A", "B"], ["a2", "C", "D"], ["a3", "E", "F"]]

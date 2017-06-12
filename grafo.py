@@ -20,7 +20,7 @@ class Grafo:
         self.comb = []
         qtd_A = []
         self.matriz = []
-        count1 = -1
+        count = -1
 
         for v in N:
             if not(Grafo.verticeValido(v)):
@@ -56,17 +56,73 @@ class Grafo:
             self.matriz.append(qtd_A[start:end])
 
         for x in self.matriz:
-            count1 += 1
-            for y in range(count1):
+            count += 1
+            for y in range(count):
                 x[y] = "-"
 
     def encontraNaoAdjacentes(self):
+        '''
+        Verifica os vértices não adjacentes, ou seja, os vértices que não possuem ligação entre si.
+        Trabalhando em cima da matriz de adjacência, esta função retorna uma matriz chamada naoAdjacentes,
+        onde cada linha desta matriz é encarada como um par ordenado de vértices não adjacentes. Com base na matriz
+        de adjacência, a função verifica em quais posições da mesma estão localizados os zeros, significando que não
+        há ligação entre aqueles vértices daquela posição. Quando encontrado algum zero, a função insere dentro da
+        matriz naoAdjacentes uma linha, onde o primeiro índice correponde a um vértice que não possui ligação
+        com o vértice do segundo índice.
+        :return: uma matriz com pares ordenados de vértices não adjacentes.
+        '''
         naoAdjacentes = []
-        for i in self.comb:
-            if i not in self.arestas:
-                naoAdjacentes.append(i)
-            if i invertido
+        for i in range(len(self.matriz)):
+            for j in range(len(self.matriz[i])):
+                if self.matriz[i][j] == 0:
+                    naoAdjacentes.append([self.N[i], self.N[j]])
         return naoAdjacentes
+
+    def existeLaço(self):
+        '''
+        Verifica a existeência de laços, ou seja, vértices adjacentes a ele mesmo.
+        Através do "for" com o intervalo do tamanho da matriz, a função percorre todas as linhas da mesma,
+        a procura de laços. Utilizando índices iguais em self.matriz ([i][i]), a função percorre somente a
+        diagonal principal. Neste caso, só nos interessa a diagonal principal, pois ela é quem relaciona um vértice
+        com ele mesmo. Quando a funçã encontra algum número diferente de zero, então ela returna True, significando
+        que nessa matriz de adjacência há pelo menos um laço. Quando ela não encontra, ou seja, quando todos os
+        números da diagonal principal são zero, a função retorna False, significando que a mesma não encontrou
+        nenhum laço.
+        :return: um valor booleano que indica a existência ou não de pelo menos um laço na matriz de adjacência.
+        '''
+        for i in range(len(self.matriz)):
+            if self.matriz[i][i] != 0:
+                return True
+        return False
+
+    def existeArestaParalela(self):
+        '''
+        Verifica se existe alguma aresta paralela.
+        A função percorre a matriz em busca de qualquer número que seja maior que 1, significando que entre os vértices
+        daquela posição existem mais de uma aresta, ou seja, que existem arestas paralelas.
+        :return: um valor booleano que indica ou não a presença de arestas paralelas na matriz de adjacência.
+        '''
+        for i in range(len(self.matriz)):
+            for j in range(len(self.matriz)):
+                if self.matriz[i][j] > 1:
+                    return True
+        return False
+
+    def calculaGrauVertice(self, vertice):
+        '''
+        Calcula o grau de um vértice passado como parametro, ou seja, quantas arestas têm conectadas a este vértice.
+        A função retorna o índice na lista de vértices de um vértice passado como parametro, e então, para aquele índice
+        correspondente a linha na matriz de adjacência, a função soma todas as arestas encontradas naquela linha.
+        :param vertice: um vértice que se deseja calcular o seu grau
+        :return: um valor inteiro referente ao grau do vértice
+        '''
+        indice = self.N.index(vertice)
+        grau = 0
+        for x in range(len(self.matriz)):
+            if type(self.matriz[indice][x]) == int:
+                grau += self.matriz[indice][x]
+        return grau
+
 
     def arestaValida(self, aresta=''):
         '''
