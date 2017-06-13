@@ -3,6 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="659ebaac-3480-4f7c-b0d3-6cde2445f0c5" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grafo.py" afterPath="$PROJECT_DIR$/grafo.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/operações_grafo.py" afterPath="$PROJECT_DIR$/operações_grafo.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/testes.py" afterPath="$PROJECT_DIR$/testes.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -17,8 +19,8 @@
       <file leaf-file-name="grafo.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/grafo.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="54">
-              <caret line="122" column="38" lean-forward="true" selection-start-line="122" selection-start-column="38" selection-end-line="122" selection-end-column="38" />
+            <state relative-caret-position="396">
+              <caret line="179" column="0" lean-forward="true" selection-start-line="179" selection-start-column="0" selection-end-line="179" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -27,8 +29,8 @@
       <file leaf-file-name="operações_grafo.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/operações_grafo.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1305">
-              <caret line="87" column="0" lean-forward="true" selection-start-line="87" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
+            <state relative-caret-position="455">
+              <caret line="89" column="9" lean-forward="true" selection-start-line="89" selection-start-column="9" selection-end-line="89" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -37,8 +39,8 @@
       <file leaf-file-name="testes.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/testes.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="27" selection-end-column="13" />
+            <state relative-caret-position="375">
+              <caret line="25" column="1" lean-forward="false" selection-start-line="25" selection-start-column="1" selection-end-line="25" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -50,6 +52,8 @@
     <findStrings>
       <find>parametro</find>
       <find>parâmetro</find>
+      <find>comb</find>
+      <find>aux</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -61,9 +65,9 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/testes.py" />
         <option value="$PROJECT_DIR$/operações_grafo.py" />
         <option value="$PROJECT_DIR$/grafo.py" />
+        <option value="$PROJECT_DIR$/testes.py" />
       </list>
     </option>
   </component>
@@ -104,6 +108,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -118,8 +124,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -157,21 +161,6 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <method />
     </configuration>
-    <configuration default="false" name="Unittests in testes.py" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="Grafos" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;$PROJECT_DIR$/testes.py&quot;" />
-      <option name="_new_targetType" value="&quot;PATH&quot;" />
-      <method />
-    </configuration>
     <configuration default="false" name="testes" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -188,6 +177,22 @@
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Unittests in testes.py" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="$USER_HOME$/Documentos/Programas/Anaconda3/bin/python" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="Grafos" />
+      <option name="_new_pattern" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/testes.py&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method />
     </configuration>
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
@@ -256,14 +261,14 @@
     </configuration>
     <list size="3">
       <item index="0" class="java.lang.String" itemvalue="Python.operações_grafo" />
-      <item index="1" class="java.lang.String" itemvalue="Python tests.Unittests in testes.py" />
-      <item index="2" class="java.lang.String" itemvalue="Python.testes" />
+      <item index="1" class="java.lang.String" itemvalue="Python.testes" />
+      <item index="2" class="java.lang.String" itemvalue="Python tests.Unittests in testes.py" />
     </list>
     <recent_temporary>
       <list size="3">
         <item index="0" class="java.lang.String" itemvalue="Python.operações_grafo" />
-        <item index="1" class="java.lang.String" itemvalue="Python.testes" />
-        <item index="2" class="java.lang.String" itemvalue="Python tests.Unittests in testes.py" />
+        <item index="1" class="java.lang.String" itemvalue="Python tests.Unittests in testes.py" />
+        <item index="2" class="java.lang.String" itemvalue="Python.testes" />
       </list>
     </recent_temporary>
   </component>
@@ -281,15 +286,40 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="Unittests_in_testes_py - 2017.06.12 at 11h 46m 47s.xml">
+    <history-entry file="Unittests_in_testes_py - 2017.06.13 at 10h 08m 05s.xml">
       <configuration name="Unittests in testes.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_in_testes_py - 2017.06.12 at 11h 47m 54s.xml">
+    <history-entry file="Unittests_in_testes_py - 2017.06.13 at 10h 08m 20s.xml">
+      <configuration name="Unittests in testes.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_in_testes_py - 2017.06.13 at 10h 08m 27s.xml">
+      <configuration name="Unittests in testes.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_in_testes_py - 2017.06.13 at 10h 32m 22s.xml">
+      <configuration name="Unittests in testes.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_in_testes_py - 2017.06.13 at 11h 19m 43s.xml">
+      <configuration name="Unittests in testes.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_in_testes_py - 2017.06.13 at 11h 20m 03s.xml">
+      <configuration name="Unittests in testes.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_in_testes_py - 2017.06.13 at 11h 21m 06s.xml">
+      <configuration name="Unittests in testes.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_in_testes_py - 2017.06.13 at 11h 22m 10s.xml">
+      <configuration name="Unittests in testes.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_in_testes_py - 2017.06.13 at 11h 22m 30s.xml">
+      <configuration name="Unittests in testes.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_in_testes_py - 2017.06.13 at 11h 47m 20s.xml">
       <configuration name="Unittests in testes.py" configurationId="tests" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1" y="0" width="1368" height="741" extended-state="6" />
+    <frame x="-1" y="0" width="1368" height="741" extended-state="7" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2489019" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -321,6 +351,30 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/grafo.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/operações_grafo.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1305">
+          <caret line="87" column="0" lean-forward="true" selection-start-line="87" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testes.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="27" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/grafo.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -489,14 +543,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/testes.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="27" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/Documentos/Programas/Anaconda3/lib/python3.6/codecs.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="156">
@@ -504,18 +550,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/testes.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="25" column="1" lean-forward="false" selection-start-line="25" selection-start-column="1" selection-end-line="25" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/operações_grafo.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1305">
-          <caret line="87" column="0" lean-forward="true" selection-start-line="87" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
+        <state relative-caret-position="455">
+          <caret line="89" column="9" lean-forward="true" selection-start-line="89" selection-start-column="9" selection-end-line="89" selection-end-column="9" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/grafo.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="122" column="38" lean-forward="true" selection-start-line="122" selection-start-column="38" selection-end-line="122" selection-end-column="38" />
+        <state relative-caret-position="396">
+          <caret line="179" column="0" lean-forward="true" selection-start-line="179" selection-start-column="0" selection-end-line="179" selection-end-column="0" />
           <folding />
         </state>
       </provider>

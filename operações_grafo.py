@@ -84,6 +84,9 @@ while True:
     #f): Verifica se o grafo é completo:
     print("f): O grafo é completo?: ", grafo.verificaGrafoCompleto())
 
+    #Verifica conexo:
+    print("Comb: ", grafo.verificaGrafoConexo())
+
     break
 
-# a1(A-B) , a2(B-C), a3(A-C)
+# a1(A-B), a2(B-C), a3(A-C)

@@ -38,15 +38,15 @@ class Grafo:
             self.arestas.append(A[x].split("-"))
         for x in range(len(N)):
             for y in range(len(N)):
-                string = [N[x], N[y]]
-                self.comb.append(string)
+                aux1 = [N[x], N[y]]
+                self.comb.append(aux1)
         for x in self.comb:
             c1 = self.arestas.count(x)
-            aux = []
+            aux2 = []
             if x[0] != x[1]:
-                aux.append(x[1])
-                aux.append(x[0])
-            c2 = self.arestas.count(aux)
+                aux2.append(x[1])
+                aux2.append(x[0])
+            c2 = self.arestas.count(aux2)
             c3 = c1 + c2
             qtd_A.append(c3)
 
@@ -161,6 +161,23 @@ class Grafo:
                         return False
         return True
 
+    def verificaGrafoConexo(self):
+        comb = []
+        for x in range(len(self.N)):
+            for y in range(len(self.N)):
+                aux3 = [self.N[x], self.N[y]]
+                if aux3[0] != aux3[1]:
+                    if [aux3[1], aux3[0]] not in comb:
+                        comb.append(aux3)
+
+        # aux4 = []
+        # for i in range(len(self.matriz)):
+        #     for j in range(len(self.matriz)):
+        #         if self.matriz[i][j] != "-" and i != j:
+        #             if self.matriz[i][j] >= 1:
+        #
+        #     aux4 = []
+
     def arestaValida(self, aresta=''):
         '''
         Verifica se uma aresta passada como parâmetro está dentro do padrão estabelecido.
@@ -240,7 +257,6 @@ class Grafo:
         :return: Uma string que representa o grafo
         '''
         grafo_str = ''
-        # count2 = 0
 
         for v in range(len(self.N)):
             grafo_str += self.N[v]
@@ -256,19 +272,10 @@ class Grafo:
 
         grafo_str += '\n---\n'
 
-        # for y in range(len(self.N)):
-        #     grafo_str += " "
-        #     grafo_str += self.N[y]
-        #     grafo_str += " "
-        # grafo_str += "\n"
-
         for x in self.matriz:
-            # a = self.N[count2]
-            # grafo_str += a + " "
             for y in x:
                 grafo_str += "|"
                 grafo_str += str(y)
                 grafo_str += "|"
             grafo_str += "\n"
-            # count2 += 1
         return grafo_str

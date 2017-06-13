@@ -23,6 +23,10 @@
 # print(lista2)
 # print("----------")
 # print(lista3)
-
-a = 8
-print(int(a))
+#
+# v = ["A", "B", "C", "D", "E"]
+#
+# comb = []
+#
+# count = 0
+# for
