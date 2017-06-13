@@ -113,7 +113,10 @@ class Grafo:
         '''
         Calcula o grau de um vértice passado como parametro, ou seja, quantas arestas têm conectadas a este vértice.
         A função retorna o índice na lista de vértices de um vértice passado como parametro, e então, para aquele índice
-        correspondente a linha na matriz de adjacência, a função soma todas as arestas encontradas naquela linha.
+        correspondente a linha na matriz de adjacência, a função soma todas as arestas encontradas naquela linha. Em
+        seguida, o processo é repetido, mas desta vez com as colunas, ignorando somente o elemento pertencente a
+        diagonal principal, pois este já foi contabilizado na contagem anterior. Ao final, a função retorna a soma
+        de tudo.
         :param vertice: um vértice que se deseja calcular o seu grau
         :return: um valor inteiro referente ao grau do vértice
         '''
@@ -122,6 +125,10 @@ class Grafo:
         for x in range(len(self.matriz)):
             if type(self.matriz[indice][x]) == int:
                 grau += self.matriz[indice][x]
+        for y in range(len(self.matriz)):
+            if y != indice:
+                if type(self.matriz[y][indice]) == int:
+                    grau += self.matriz[y][indice]
         return grau
 
     def encontraArestasIncidentes(self, vertice):
@@ -133,6 +140,14 @@ class Grafo:
             if vertice in self.arestas[x]:
                 nomeArestasIncidentes.append(nomeArestas[x])
         return nomeArestasIncidentes
+
+    def verificaGrafoCompleto(self):
+        for i in range(len(self.matriz)):
+            for j in range(len(self.matriz)):
+                if (self.matriz[i][j] != "-") and (i != j):
+                    if (self.matriz[i][j] == 0):
+                        return False
+        return True
 
     def arestaValida(self, aresta=''):
         '''

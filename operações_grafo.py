@@ -73,13 +73,16 @@ while True:
     #c): Verifica se existe alguma aresta paralela:
     print("c): Existe aresta paralela?: ", grafo.existeArestaParalela())
 
-    #d): Verifica o grau de um vértice
+    #d): Verifica o grau de um vértice:
     vertice1 = input("Informe um vértice que deseja obter o grau: ")
     print("d): Grau do vértice", vertice1, ": ", grafo.calculaGrauVertice(vertice1))
 
-    #e): Encontra arestas incidentes sobre um dado vértice
+    #e): Encontra arestas incidentes sobre um dado vértice:
     vertice2 = input("Informe um vértice que deseja obter as arestas incidentes sobre o mesmo: ")
     print("e): Arestas incidentes sobre o vértice", vertice2, ": ", grafo.encontraArestasIncidentes(vertice2))
+
+    #f): Verifica se o grafo é completo:
+    print("f): O grafo é comṕleto?: ", grafo.verificaGrafoCompleto())
 
     break
 
