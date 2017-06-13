@@ -104,8 +104,9 @@ class Grafo:
         '''
         for i in range(len(self.matriz)):
             for j in range(len(self.matriz)):
-                if self.matriz[i][j] > 1:
-                    return True
+                if self.matriz[i][j] != "-":
+                    if self.matriz[i][j] > 1:
+                        return True
         return False
 
     def calculaGrauVertice(self, vertice):
@@ -123,6 +124,15 @@ class Grafo:
                 grau += self.matriz[indice][x]
         return grau
 
+    def encontraArestasIncidentes(self, vertice):
+        nomeArestas = []
+        nomeArestasIncidentes = []
+        for x in self.A:
+            nomeArestas.append(x)
+        for x in range(len(self.arestas)):
+            if vertice in self.arestas[x]:
+                nomeArestasIncidentes.append(nomeArestas[x])
+        return nomeArestasIncidentes
 
     def arestaValida(self, aresta=''):
         '''
