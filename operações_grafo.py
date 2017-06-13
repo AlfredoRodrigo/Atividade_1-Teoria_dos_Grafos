@@ -82,7 +82,7 @@ while True:
     print("e): Arestas incidentes sobre o vértice", vertice2, ": ", grafo.encontraArestasIncidentes(vertice2))
 
     #f): Verifica se o grafo é completo:
-    print("f): O grafo é comṕleto?: ", grafo.verificaGrafoCompleto())
+    print("f): O grafo é completo?: ", grafo.verificaGrafoCompleto())
 
     break
 
