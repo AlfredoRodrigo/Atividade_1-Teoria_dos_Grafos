@@ -111,8 +111,8 @@ class Grafo:
 
     def calculaGrauVertice(self, vertice):
         '''
-        Calcula o grau de um vértice passado como parametro, ou seja, quantas arestas têm conectadas a este vértice.
-        A função retorna o índice na lista de vértices de um vértice passado como parametro, e então, para aquele índice
+        Calcula o grau de um vértice passado como parâmetro, ou seja, quantas arestas têm conectadas a este vértice.
+        A função retorna o índice na lista de vértices de um vértice passado como parâmetro, e então, para aquele índice
         correspondente a linha na matriz de adjacência, a função soma todas as arestas encontradas naquela linha. Em
         seguida, o processo é repetido, mas desta vez com as colunas, ignorando somente o elemento pertencente a
         diagonal principal, pois este já foi contabilizado na contagem anterior. Ao final, a função retorna a soma
@@ -132,6 +132,18 @@ class Grafo:
         return grau
 
     def encontraArestasIncidentes(self, vertice):
+        '''
+        Verifica e encontra as arestas que incidem sobre o vertice passado como parâmetro.
+        A função coleta do dicionário as chaves, que são as arestas do grafo, e as coloca na lista nomeArestas.
+        Em seguida, é verificado se o vértice passado como parâmetro se encontra em alguma das posições da lista
+        self.arestas, significando que existe uma ligação dele com outro. Encontrada uma ligação, então é feita uma
+        correspondência entre o índice da lista self.arestas e o índice da lista nomeArestas, e a lista
+        nomeArestasIncidentes recebe o elemento correspondente na lista nomeArestas.
+        Ao final, a função retorna uma lista com os nomes das arestas que se conectam com o vértice passado como
+        parâmetro.
+        :param vertice: um vértice que se deseja obter o nome de suas arestas.
+        :return: uma lista com o nome das arestas incidentes sobre este vértice.
+        '''
         nomeArestas = []
         nomeArestasIncidentes = []
         for x in self.A:
