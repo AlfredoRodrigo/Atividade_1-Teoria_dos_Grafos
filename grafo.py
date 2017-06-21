@@ -12,9 +12,11 @@ class Grafo:
     def __init__(self, N=[], A={}):
         '''
         Constrói um objeto do tipo Grafo. Se nenhum parâmetro for passado, cria um Grafo vazio.
-        Se houver alguma aresta ou algum vértice inválido, uma exceção é lançada.
+        Se houver alguma aresta ou algum vértice inválido, uma exceção é lançada. Caso tudo esteja
+        em conformidade com as regras, uma matriz de adjascência é criada.
         :param N: Uma lista dos vértices (ou nodos) do grafo.
-        :param V: Uma dicionário que guarda as arestas do grafo. A chave representa o nome da aresta e o valor é uma string que contém dois vértices separados por um traço.
+        :param V: Um dicionário que guarda as arestas do grafo. A chave representa o nome da aresta
+        e o valor é uma string que contém dois vértices separados por um traço.
         '''
         self.arestas = []
         self.comb = []
@@ -34,12 +36,29 @@ class Grafo:
 
         self.A = A
 
+        # A partir deste ponto, o código cria a matriz de adjacência da seguinte forma:
+
+        # Primeiramente, na lista self.arestas são inseridas listas com os vértices que são conectados no grafo.
+        # Este "for" cria listas a partir dos valores das chaves do dicionário, os separando pelo traço.
+        # Exemplo: Se o grafo receber três vértices, A, B e C, e duas arestas, a1(A-B) e a2(B-C), então a lista
+        # self.arestas receberá [[A, B], [B, C]].
         for x in A:
             self.arestas.append(A[x].split("-"))
+
+        # Cria uma lista self.comb com todas as combinações possíveis de ligações dos vértices
+        # passados como parâmetro ao grafo. Exemplo: Se o grafo receber dois vértices, A e B, será criada uma
+        # lista self.comb igual a [[A, A], [A, B], [B, A], [B, B]].
         for x in range(len(N)):
             for y in range(len(N)):
                 aux1 = [N[x], N[y]]
                 self.comb.append(aux1)
+
+        # Conta a quantidade de arestas para inserção na matriz de adjacência por meio da comparação
+        # das listas self.comb e self.arestas. Percorrendo a lista self.comb, ele verifica quantas vezes o iésimo
+        # elemento da mesma pertence também a self.arestas, e adiciona esta quantidade à lista qtd_A.
+        # Como o grafo é do tipo não direcionado, ele também faz as considerações necessárias para este caso,
+        # como por exemplo, o tratamento da ocorrência de [B, A] e de [A, B]. Cada posição de qtd_A está relacionada
+        # com a matriz de adjacência.
         for x in self.comb:
             c1 = self.arestas.count(x)
             aux2 = []
@@ -50,11 +69,13 @@ class Grafo:
             c3 = c1 + c2
             qtd_A.append(c3)
 
+        # Transforma a lista qtd_A em uma matriz de adjacência.
         for i in range(len(N)):
-            start = int(i * len(self.comb) / len(N))
-            end = int((i + 1) * len(self.comb) / len(N))
-            self.matriz.append(qtd_A[start:end])
+            inicio = int(i * len(self.comb) / len(N))
+            fim = int((i + 1) * len(self.comb) / len(N))
+            self.matriz.append(qtd_A[inicio:fim])
 
+        # Insere traços em todas as posições da matriz de adjacência abaixo da diagonal principal.
         for x in self.matriz:
             count += 1
             for y in range(count):
@@ -154,29 +175,23 @@ class Grafo:
         return nomeArestasIncidentes
 
     def verificaGrafoCompleto(self):
+        '''
+        Verifica se o grafo criado é ou não completo. Para um grafo ser classificado como completo, é
+        necessário existir pelo menos uma ligação entre um vértice qualquer a outro vértice qualquer.
+        Sabendo disto, é possível determinar se um grafo é compelto ou não somente olhando para a matriz.
+        Ignorando a diagonal principal e tudo abaixo dela, se em alguma posição restante existir algum zero,
+        significa que aquela ligação entre os respectivos vértices não existe, classificando o grafo como
+        incompleto. E é isto que a função faz. Ela realiza diversos testes afim de encontrar algum zero e
+        retornar um resultado negativo. Uma vez passado por todos os testes, significa que o grafo é completo,
+        retornando um resultado positivo.
+        :return: um valor booleano que indica se o grafo é ou não completo.
+        '''
         for i in range(len(self.matriz)):
             for j in range(len(self.matriz)):
                 if (self.matriz[i][j] != "-") and (i != j):
                     if (self.matriz[i][j] == 0):
                         return False
         return True
-
-    def verificaGrafoConexo(self):
-        comb = []
-        for x in range(len(self.N)):
-            for y in range(len(self.N)):
-                aux3 = [self.N[x], self.N[y]]
-                if aux3[0] != aux3[1]:
-                    if [aux3[1], aux3[0]] not in comb:
-                        comb.append(aux3)
-
-        # aux4 = []
-        # for i in range(len(self.matriz)):
-        #     for j in range(len(self.matriz)):
-        #         if self.matriz[i][j] != "-" and i != j:
-        #             if self.matriz[i][j] >= 1:
-        #
-        #     aux4 = []
 
     def arestaValida(self, aresta=''):
         '''
@@ -253,24 +268,25 @@ class Grafo:
     def __str__(self):
         '''
         Fornece uma representação do tipo String do grafo.
-        O String contém um sequência dos vértices separados por vírgula, seguido de uma sequência das arestas no formato padrão.
-        :return: Uma string que representa o grafo
+        O String contém um sequência dos vértices separados por vírgula, seguido de uma sequência
+        das arestas no formato padrão e de uma matriz de adjacência.
+        :return: Uma string que representa o grafo.
         '''
         grafo_str = ''
 
         for v in range(len(self.N)):
             grafo_str += self.N[v]
-            if v < (len(self.N) - 1):  # Só coloca a vírgula se não for o último vértice
+            if v < (len(self.N) - 1):  # Só coloca a vírgula se não for o último vértice.
                 grafo_str += ", "
 
-        grafo_str += '\n---\n'
+        grafo_str += '\n'
 
         for i, a in enumerate(self.A):
             grafo_str += self.A[a]
-            if not(i == len(self.A) - 1): # Só coloca a vírgula se não for a última aresta
+            if not(i == len(self.A) - 1): # Só coloca a vírgula se não for a última aresta.
                 grafo_str += ", "
 
-        grafo_str += '\n---\n'
+        grafo_str += '\n'
 
         for x in self.matriz:
             for y in x:
