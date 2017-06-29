@@ -9,6 +9,18 @@ class Grafo:
     QTDE_MAX_SEPARADOR = 1
     SEPARADOR_ARESTA = '-'
 
+
+
+
+
+
+    # TODAS AS FUNÇÕES QUE SOFRERAM MODIFICAÇÕES DEVEM SER TESTADAS
+
+
+
+
+
+
     def __init__(self, N=[], A={}):
         '''
         Constrói um objeto do tipo Grafo. Se nenhum parâmetro for passado, cria um Grafo vazio.
@@ -53,6 +65,18 @@ class Grafo:
                 aux1 = [N[x], N[y]]
                 self.comb.append(aux1)
 
+
+
+
+
+
+        # GRAFO MODIFICADO PARA DIRECIONADO
+
+
+
+
+
+
         # Conta a quantidade de arestas para inserção na matriz de adjacência por meio da comparação
         # das listas self.comb e self.arestas. Percorrendo a lista self.comb, ele verifica quantas vezes o iésimo
         # elemento da mesma pertence também a self.arestas, e adiciona esta quantidade à lista qtd_A.
@@ -61,13 +85,13 @@ class Grafo:
         # com a matriz de adjacência.
         for x in self.comb:
             c1 = self.arestas.count(x)
-            aux2 = []
-            if x[0] != x[1]:
-                aux2.append(x[1])
-                aux2.append(x[0])
-            c2 = self.arestas.count(aux2)
-            c3 = c1 + c2
-            qtd_A.append(c3)
+            # aux2 = []
+            # if x[0] != x[1]:
+            #     aux2.append(x[1])
+            #     aux2.append(x[0])
+            # c2 = self.arestas.count(aux2)
+            # c3 = c1 + c2
+            qtd_A.append(c1) # antes era c2
 
         # Transforma a lista qtd_A em uma matriz de adjacência.
         for i in range(len(N)):
@@ -75,11 +99,23 @@ class Grafo:
             fim = int((i + 1) * len(self.comb) / len(N))
             self.matriz.append(qtd_A[inicio:fim])
 
+
+
+
+
+
+        # REMOVIDA A INSERÇÃO DOS TRAÇOS NA MATRIZ
+
+
+
+
+
+
         # Insere traços em todas as posições da matriz de adjacência abaixo da diagonal principal.
-        for x in self.matriz:
-            count += 1
-            for y in range(count):
-                x[y] = "-"
+        # for x in self.matriz:
+        #     count += 1
+        #     for y in range(count):
+        #         x[y] = "-"
 
     def encontraNaoAdjacentes(self):
         '''
@@ -116,6 +152,18 @@ class Grafo:
                 return True
         return False
 
+
+
+
+
+
+    # MODIFICADA A VERIFICAÇÃO PELO SEGUNDO IF
+
+
+
+
+
+
     def existeArestaParalela(self):
         '''
         Verifica se existe alguma aresta paralela.
@@ -125,7 +173,7 @@ class Grafo:
         '''
         for i in range(len(self.matriz)):
             for j in range(len(self.matriz)):
-                if self.matriz[i][j] != "-":
+                if i < j: # antes ele verificava se era diferente de traço.
                     if self.matriz[i][j] > 1:
                         return True
         return False
@@ -174,6 +222,18 @@ class Grafo:
                 nomeArestasIncidentes.append(nomeArestas[x])
         return nomeArestasIncidentes
 
+
+
+
+
+
+    # MODIFICADA A VERIFICAÇÃO PELO PRIMEIRO IF
+
+
+
+
+
+
     def verificaGrafoCompleto(self):
         '''
         Verifica se o grafo criado é ou não completo. Para um grafo ser classificado como completo, é
@@ -186,12 +246,29 @@ class Grafo:
         retornando um resultado positivo.
         :return: um valor booleano que indica se o grafo é ou não completo.
         '''
+
         for i in range(len(self.matriz)):
             for j in range(len(self.matriz)):
-                if (self.matriz[i][j] != "-") and (i != j):
+                if (i < j) and (i != j): # antes verificava se era diferente de traço e se [i] era diferente de [j].
                     if (self.matriz[i][j] == 0):
                         return False
         return True
+
+    # ALGORITMO DE WARSHALL
+
+    def warshall(self):
+        matrizCopia = list(self.matriz)
+
+        for i in range(len(matrizCopia)):
+            for j in range(len(matrizCopia)):
+                if matrizCopia[i][j] > 0:
+                    matrizCopia[i][j] = 1
+
+        for i in range(len(matrizCopia)):
+            for j in range(len(matrizCopia)):
+                if matrizCopia[j][i] == 1:
+                    for k in range(len(matrizCopia)):
+                        matrizCopia[j][k] = max(matrizCopia[j][k], matrizCopia[i][k])
 
     def arestaValida(self, aresta=''):
         '''
