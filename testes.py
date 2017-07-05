@@ -30,3 +30,11 @@
 #
 # count = 0
 # for
+import copy
+
+listaA = [1, 2]
+listaB = copy.copy(listaA)
+listaB[0] = 2
+listaB[1] = 1
+
+print(listaA, listaB)

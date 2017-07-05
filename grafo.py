@@ -269,6 +269,7 @@ class Grafo:
                 if matrizCopia[j][i] == 1:
                     for k in range(len(matrizCopia)):
                         matrizCopia[j][k] = max(matrizCopia[j][k], matrizCopia[i][k])
+        return matrizCopia
 
     def arestaValida(self, aresta=''):
         '''
@@ -363,7 +364,7 @@ class Grafo:
             if not(i == len(self.A) - 1): # Só coloca a vírgula se não for a última aresta.
                 grafo_str += ", "
 
-        grafo_str += '\n'
+        grafo_str += '\nMatriz de adjacência:\n'
 
         for x in self.matriz:
             for y in x:
