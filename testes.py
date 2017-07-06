@@ -1,3 +1,7 @@
+"""
+Este foi um programa utilizado somente com fins de testes. Nada escrito aqui deve ser considerado.
+"""
+
 # percorrendo um dicionário:
 #
 # dicionário = {"a1": "A-B", "a2": "A-C", "a3": "B-C"}
@@ -30,11 +34,11 @@
 #
 # count = 0
 # for
-import copy
-
-listaA = [1, 2]
-listaB = copy.copy(listaA)
-listaB[0] = 2
-listaB[1] = 1
-
-print(listaA, listaB)
+# import copy
+#
+# listaA = [1, 2]
+# listaB = copy.copy(listaA)
+# listaB[0] = 2
+# listaB[1] = 1
+#
+# print(listaA, listaB)

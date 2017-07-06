@@ -9,18 +9,6 @@ class Grafo:
     QTDE_MAX_SEPARADOR = 1
     SEPARADOR_ARESTA = '-'
 
-
-
-
-
-
-    # TODAS AS FUNÇÕES QUE SOFRERAM MODIFICAÇÕES DEVEM SER TESTADAS
-
-
-
-
-
-
     def __init__(self, N=[], A={}):
         '''
         Constrói um objeto do tipo Grafo. Se nenhum parâmetro for passado, cria um Grafo vazio.
@@ -48,7 +36,8 @@ class Grafo:
 
         self.A = A
 
-        # A partir deste ponto, o código cria a matriz de adjacência da seguinte forma:
+        # A partir deste ponto até o final desta função, o código cria a matriz de adjacência.
+        # Cada bloco de comentários é referente ao "for" imediatamente seguinte a este bloco.
 
         # Primeiramente, na lista self.arestas são inseridas listas com os vértices que são conectados no grafo.
         # Este "for" cria listas a partir dos valores das chaves do dicionário, os separando pelo traço.
@@ -65,18 +54,6 @@ class Grafo:
                 aux1 = [N[x], N[y]]
                 self.comb.append(aux1)
 
-
-
-
-
-
-        # GRAFO MODIFICADO PARA DIRECIONADO
-
-
-
-
-
-
         # Conta a quantidade de arestas para inserção na matriz de adjacência por meio da comparação
         # das listas self.comb e self.arestas. Percorrendo a lista self.comb, ele verifica quantas vezes o iésimo
         # elemento da mesma pertence também a self.arestas, e adiciona esta quantidade à lista qtd_A.
@@ -85,37 +62,13 @@ class Grafo:
         # com a matriz de adjacência.
         for x in self.comb:
             c1 = self.arestas.count(x)
-            # aux2 = []
-            # if x[0] != x[1]:
-            #     aux2.append(x[1])
-            #     aux2.append(x[0])
-            # c2 = self.arestas.count(aux2)
-            # c3 = c1 + c2
-            qtd_A.append(c1) # antes era c2
+            qtd_A.append(c1)
 
         # Transforma a lista qtd_A em uma matriz de adjacência.
         for i in range(len(N)):
             inicio = int(i * len(self.comb) / len(N))
             fim = int((i + 1) * len(self.comb) / len(N))
             self.matriz.append(qtd_A[inicio:fim])
-
-
-
-
-
-
-        # REMOVIDA A INSERÇÃO DOS TRAÇOS NA MATRIZ
-
-
-
-
-
-
-        # Insere traços em todas as posições da matriz de adjacência abaixo da diagonal principal.
-        # for x in self.matriz:
-        #     count += 1
-        #     for y in range(count):
-        #         x[y] = "-"
 
     def encontraNaoAdjacentes(self):
         '''
@@ -152,18 +105,6 @@ class Grafo:
                 return True
         return False
 
-
-
-
-
-
-    # MODIFICADA A VERIFICAÇÃO PELO SEGUNDO IF
-
-
-
-
-
-
     def existeArestaParalela(self):
         '''
         Verifica se existe alguma aresta paralela.
@@ -173,7 +114,7 @@ class Grafo:
         '''
         for i in range(len(self.matriz)):
             for j in range(len(self.matriz)):
-                if i < j: # antes ele verificava se era diferente de traço.
+                if i < j:
                     if self.matriz[i][j] > 1:
                         return True
         return False
@@ -212,6 +153,7 @@ class Grafo:
         parâmetro.
         :param vertice: um vértice que se deseja obter o nome de suas arestas.
         :return: uma lista com o nome das arestas incidentes sobre este vértice.
+        retorna 0 se nenhuma aresta incidente for encontrada for encontrada.
         '''
         nomeArestas = []
         nomeArestasIncidentes = []
@@ -220,19 +162,9 @@ class Grafo:
         for x in range(len(self.arestas)):
             if vertice in self.arestas[x]:
                 nomeArestasIncidentes.append(nomeArestas[x])
-        return nomeArestasIncidentes
-
-
-
-
-
-
-    # MODIFICADA A VERIFICAÇÃO PELO PRIMEIRO IF
-
-
-
-
-
+        if (len(nomeArestasIncidentes) != 0):
+            return nomeArestasIncidentes
+        return 0
 
     def verificaGrafoCompleto(self):
         '''
@@ -249,14 +181,18 @@ class Grafo:
 
         for i in range(len(self.matriz)):
             for j in range(len(self.matriz)):
-                if (i < j) and (i != j): # antes verificava se era diferente de traço e se [i] era diferente de [j].
+                if (i < j) and (i != j):
                     if (self.matriz[i][j] == 0):
                         return False
         return True
 
-    # ALGORITMO DE WARSHALL
-
     def warshall(self):
+        '''
+        Este algoritmo é chamado de algoritmo de Warshall, e serve para ancontrar a matriz de alcançabilidade
+        de um grafo, ou seja, uma matriz que determina se é possível chegar de um vértice X a um vértice Y de
+        alguma maneira. Este algoritmo foi escrito seguindo exatamente o pseudocódigo fornecido pelo professor.
+        :return: uma matriz de alcançabilidade.
+        '''
         matrizCopia = list(self.matriz)
 
         for i in range(len(matrizCopia)):
@@ -350,7 +286,7 @@ class Grafo:
         das arestas no formato padrão e de uma matriz de adjacência.
         :return: Uma string que representa o grafo.
         '''
-        grafo_str = ''
+        grafo_str = ""
 
         for v in range(len(self.N)):
             grafo_str += self.N[v]
