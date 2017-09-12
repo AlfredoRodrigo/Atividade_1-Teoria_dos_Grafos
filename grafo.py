@@ -1,3 +1,7 @@
+from collections import defaultdict
+from heapq import *
+import copy
+
 class VerticeInvalidoException(Exception):
     pass
 
@@ -9,7 +13,7 @@ class Grafo:
     QTDE_MAX_SEPARADOR = 1
     SEPARADOR_ARESTA = '-'
 
-    def __init__(self, N=[], A={}):
+    def __init__(self, N=[], A={}, P={}):
         '''
         Constrói um objeto do tipo Grafo. Se nenhum parâmetro for passado, cria um Grafo vazio.
         Se houver alguma aresta ou algum vértice inválido, uma exceção é lançada. Caso tudo esteja
@@ -21,7 +25,7 @@ class Grafo:
         self.arestas = []
         self.comb = []
         qtd_A = []
-        self.matriz = []
+        self.matriz_adjacencia = []
         count = -1
 
         for v in N:
@@ -46,6 +50,23 @@ class Grafo:
         for x in A:
             self.arestas.append(A[x].split("-"))
 
+
+        self.arestas_valoradas = []
+
+        for x in self.arestas:
+            nome_aresta = str(x[0]) + "-" + str(x[1])
+            temp = []
+            if nome_aresta in P:
+                temp.append(x[0])
+                temp.append(x[1])
+                temp.append(P[nome_aresta])
+                temp[2] = int(temp[2])
+                tupla = tuple(temp)
+                self.arestas_valoradas.append(tupla)
+
+        print("AQUI")
+        print(self.arestas_valoradas)
+
         # Cria uma lista self.comb com todas as combinações possíveis de ligações dos vértices
         # passados como parâmetro ao grafo. Exemplo: Se o grafo receber dois vértices, A e B, será criada uma
         # lista self.comb igual a [[A, A], [A, B], [B, A], [B, B]].
@@ -60,6 +81,7 @@ class Grafo:
         # Como o grafo é do tipo não direcionado, ele também faz as considerações necessárias para este caso,
         # como por exemplo, o tratamento da ocorrência de [B, A] e de [A, B]. Cada posição de qtd_A está relacionada
         # com a matriz de adjacência.
+
         for x in self.comb:
             c1 = self.arestas.count(x)
             qtd_A.append(c1)
@@ -68,7 +90,15 @@ class Grafo:
         for i in range(len(N)):
             inicio = int(i * len(self.comb) / len(N))
             fim = int((i + 1) * len(self.comb) / len(N))
-            self.matriz.append(qtd_A[inicio:fim])
+            self.matriz_adjacencia.append(qtd_A[inicio:fim])
+
+        self.matriz_adjacencia_pesos = copy.deepcopy(self.matriz_adjacencia)
+
+        for x in range(len(N)):
+            for y in range(len(N)):
+                a = N[x] + "-" + N[y]
+                if a in P:
+                    self.matriz_adjacencia_pesos[x][y] = P[a]
 
     def encontraNaoAdjacentes(self):
         '''
@@ -82,9 +112,9 @@ class Grafo:
         :return: uma matriz com pares ordenados de vértices não adjacentes.
         '''
         naoAdjacentes = []
-        for i in range(len(self.matriz)):
-            for j in range(len(self.matriz[i])):
-                if self.matriz[i][j] == 0:
+        for i in range(len(self.matriz_adjacencia)):
+            for j in range(len(self.matriz_adjacencia[i])):
+                if self.matriz_adjacencia[i][j] == 0:
                     naoAdjacentes.append([self.N[i], self.N[j]])
         return naoAdjacentes
 
@@ -100,8 +130,8 @@ class Grafo:
         nenhum laço.
         :return: um valor booleano que indica a existência ou não de pelo menos um laço na matriz de adjacência.
         '''
-        for i in range(len(self.matriz)):
-            if self.matriz[i][i] != 0:
+        for i in range(len(self.matriz_adjacencia)):
+            if self.matriz_adjacencia[i][i] != 0:
                 return True
         return False
 
@@ -112,10 +142,10 @@ class Grafo:
         daquela posição existem mais de uma aresta, ou seja, que existem arestas paralelas.
         :return: um valor booleano que indica ou não a presença de arestas paralelas na matriz de adjacência.
         '''
-        for i in range(len(self.matriz)):
-            for j in range(len(self.matriz)):
+        for i in range(len(self.matriz_adjacencia)):
+            for j in range(len(self.matriz_adjacencia)):
                 if i < j:
-                    if self.matriz[i][j] > 1:
+                    if self.matriz_adjacencia[i][j] > 1:
                         return True
         return False
 
@@ -132,13 +162,13 @@ class Grafo:
         '''
         indice = self.N.index(vertice)
         grau = 0
-        for x in range(len(self.matriz)):
-            if type(self.matriz[indice][x]) == int:
-                grau += self.matriz[indice][x]
-        for y in range(len(self.matriz)):
+        for x in range(len(self.matriz_adjacencia)):
+            if type(self.matriz_adjacencia[indice][x]) == int:
+                grau += self.matriz_adjacencia[indice][x]
+        for y in range(len(self.matriz_adjacencia)):
             if y != indice:
-                if type(self.matriz[y][indice]) == int:
-                    grau += self.matriz[y][indice]
+                if type(self.matriz_adjacencia[y][indice]) == int:
+                    grau += self.matriz_adjacencia[y][indice]
         return grau
 
     def encontraArestasIncidentes(self, vertice):
@@ -179,10 +209,10 @@ class Grafo:
         :return: um valor booleano que indica se o grafo é ou não completo.
         '''
 
-        for i in range(len(self.matriz)):
-            for j in range(len(self.matriz)):
+        for i in range(len(self.matriz_adjacencia)):
+            for j in range(len(self.matriz_adjacencia)):
                 if (i < j) and (i != j):
-                    if (self.matriz[i][j] == 0):
+                    if (self.matriz_adjacencia[i][j] == 0):
                         return False
         return True
 
@@ -193,7 +223,7 @@ class Grafo:
         alguma maneira. Este algoritmo foi escrito seguindo exatamente o pseudocódigo fornecido pelo professor.
         :return: uma matriz de alcançabilidade.
         '''
-        matrizCopia = list(self.matriz)
+        matrizCopia = list(self.matriz_adjacencia)
 
         for i in range(len(matrizCopia)):
             for j in range(len(matrizCopia)):
@@ -234,6 +264,23 @@ class Grafo:
             return False
 
         return True
+
+    def dijkstra(self, v_inicio, v_destino):
+        g = defaultdict(list)
+        for l, r, c in self.arestas_valoradas:
+            g[l].append((c, r))
+        q, seen = [(0, v_inicio, ())], set()
+        while q:
+            (cost, v1, path) = heappop(q)
+            if v1 not in seen:
+                seen.add(v1)
+                path = (v1, path)
+                if v1 == v_destino: return (cost, path)
+                for c, v2 in g.get(v1, ()):
+                    if v2 not in seen:
+                        heappush(q, (cost + c, v2, path))
+
+        return float("inf")
 
     @classmethod
     def verticeValido(self, vertice=''):
@@ -302,7 +349,7 @@ class Grafo:
 
         grafo_str += '\nMatriz de adjacência:\n'
 
-        for x in self.matriz:
+        for x in self.matriz_adjacencia:
             for y in x:
                 grafo_str += "|"
                 grafo_str += str(y)

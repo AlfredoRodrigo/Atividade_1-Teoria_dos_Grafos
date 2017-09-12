@@ -24,20 +24,25 @@ while True:
 
     while condition == 2:
         temp_g = []
-        temp_a = input("Informe as arestas e, entre parênteses, os vértices que essa aresta conecta, em ordem, separados por vírgula e espaço (ex.: aresta1(vértice1-vértice2)): ")
+        temp_a = input("Informe as arestas e, entre parênteses, os vértices que essa aresta conecta, seguidos do seu peso, também entre parênteses, em ordem, separados por vírgula e espaço (ex.: aresta1(vértice1-vértice2)(peso)): ")
         temp_g = temp_a.split(", ")
         nome_da_aresta = []
         vértice1 = []
         vértice2 = []
+        pesos = []
         for A in range(len(temp_g)):
             temp_g[A] = temp_g[A].replace("(", " ")
             temp_g[A] = temp_g[A].replace("-", " ")
             temp_g[A] = temp_g[A].replace(")", " ")
             temp_g[A] = temp_g[A].split(" ")
+        for A in temp_g:
+            A.pop(3)
+            A.pop(4) #atenção a este quatro, ele não é o que parece
         for A in range(len(temp_g)):
             nome_da_aresta.append(temp_g[A][0])
             vértice1.append(temp_g[A][1])
             vértice2.append(temp_g[A][2])
+            pesos.append(temp_g[A][3])
         count = 0
         for A in nome_da_aresta:
             if A == "":
@@ -56,40 +61,50 @@ while True:
         else:
             print("Por favor, informe novamente as arestas, seguindo expressamente as recomendações.")
 
-    dicionário = {}
+    dic_grafo = {}
+    dic_pesos = {}
 
     if condition == 3:
         for x in temp_g:
-            dicionário[x[0]] = x[1] + "-" + x[2]
-        grafo = Grafo(vértices, dicionário)
+            dic_grafo[x[0]] = x[1] + "-" + x[2]
+            dic_pesos[x[1] + "-" + x[2]] = x[3]
+        grafo = Grafo(vértices, dic_grafo, dic_pesos)
         print(grafo)
 
-    # a): Encontra todos os pares de vértices não adjacentes:
-    print("a): Vértices não adjacentes: ", grafo.encontraNaoAdjacentes())
+    print(dic_grafo)
+    print(dic_pesos)
 
-    # b): Verifica se existe algum laço, ou seja, um vértice adjacente a ele mesmo:
-    print("b): Existe laço?: ", grafo.existeLaço())
+    a = grafo.dijkstra("A", "B")
+    print(a)
 
-    # c): Verifica se existe alguma aresta paralela:
-    print("c): Existe aresta paralela?: ", grafo.existeArestaParalela())
+    # a1(A-C)(10), a2(C-B)(20), a3(A-B)(100)
 
-    # d): Verifica o grau de um vértice:
-    vertice1 = input("Informe um vértice que deseja obter o grau: ")
-    print("d): Grau do vértice", vertice1, ": ", grafo.calculaGrauVertice(vertice1))
-
-    # e): Encontra arestas incidentes sobre um dado vértice:
-    vertice2 = input("Informe um vértice que deseja obter as arestas incidentes sobre o mesmo: ")
-    print("e): Arestas incidentes sobre o vértice", vertice2, ": ", grafo.encontraArestasIncidentes(vertice2))
-
-    # f): Verifica se o grafo é completo:
-    print("f): O grafo é completo?: ", grafo.verificaGrafoCompleto())
-
-    # Warshall - matriz de alcançabilidade:
-
-    warshall = grafo.warshall()
-
-    print("Matriz de alcançabilidade: ")
-    for i in range(len(warshall)):
-        print(warshall[i])
+    # # a): Encontra todos os pares de vértices não adjacentes:
+    # print("a): Vértices não adjacentes: ", grafo.encontraNaoAdjacentes())
+    #
+    # # b): Verifica se existe algum laço, ou seja, um vértice adjacente a ele mesmo:
+    # print("b): Existe laço?: ", grafo.existeLaço())
+    #
+    # # c): Verifica se existe alguma aresta paralela:
+    # print("c): Existe aresta paralela?: ", grafo.existeArestaParalela())
+    #
+    # # d): Verifica o grau de um vértice:
+    # vertice1 = input("Informe um vértice que deseja obter o grau: ")
+    # print("d): Grau do vértice", vertice1, ": ", grafo.calculaGrauVertice(vertice1))
+    #
+    # # e): Encontra arestas incidentes sobre um dado vértice:
+    # vertice2 = input("Informe um vértice que deseja obter as arestas incidentes sobre o mesmo: ")
+    # print("e): Arestas incidentes sobre o vértice", vertice2, ": ", grafo.encontraArestasIncidentes(vertice2))
+    #
+    # # f): Verifica se o grafo é completo:
+    # print("f): O grafo é completo?: ", grafo.verificaGrafoCompleto())
+    #
+    # # Warshall - matriz de alcançabilidade:
+    #
+    # warshall = grafo.warshall()
+    #
+    # print("Matriz de alcançabilidade: ")
+    # for i in range(len(warshall)):
+    #     print(warshall[i])
 
     break
