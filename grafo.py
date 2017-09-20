@@ -275,7 +275,8 @@ class Grafo:
             if v1 not in seen:
                 seen.add(v1)
                 path = (v1, path)
-                if v1 == v_destino: return (cost, path)
+                if v1 == v_destino:
+                    return (cost, path)
                 for c, v2 in g.get(v1, ()):
                     if v2 not in seen:
                         heappush(q, (cost + c, v2, path))
