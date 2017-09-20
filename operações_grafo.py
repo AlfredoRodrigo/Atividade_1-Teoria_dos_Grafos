@@ -1,10 +1,19 @@
 from grafo import *
 
 condition = 1
+arestas = ["metroa.txt", "101a.txt", "270a.txt", "509a.txt", "703a.txt", "508a.txt", "601a.txt"]
+vertices = ["metrov.txt", "101v.txt", "270v.txt", "509v.txt", "703v.txt", "508v.txt", "601v.txt"]
+grafos = []
+estações = ["EstacaoEngenheiroAlbertoTavaresSilva", "EstacaoMatinha", "EstacaoFreiSerafim",
+            "EstacaoIlhotas", "EstacaoBoaEsperanca", "EstacaoRenascenca",
+            "EstacaoParqueIdeal", "DirceuII", "EstacaoTerminalItarare"]
 
-while True:
+for i in range(len(arestas)):
     while condition == 1:
-        temp_v = input("Informe os vértices separados por vírgula e espaço (ex.: A, B, C...): ")
+        # temp_v = input("Informe os vértices separados por vírgula e espaço (ex.: A, B, C...): ")
+        linha = open(vertices[i], 'r')
+        temp_v = linha.read()
+        linha.close()
         vértices = temp_v.split(", ")
         vértices_incorretos = []
         for f1 in vértices:
@@ -24,7 +33,10 @@ while True:
 
     while condition == 2:
         temp_g = []
-        temp_a = input("Informe as arestas e, entre parênteses, os vértices que essa aresta conecta, seguidos do seu peso, também entre parênteses, em ordem, separados por vírgula e espaço (ex.: aresta1(vértice1-vértice2)(peso)): ")
+        # temp_a = input("Informe as arestas e, entre parênteses, os vértices que essa aresta conecta, seguidos do seu peso, também entre parênteses, em ordem, separados por vírgula e espaço (ex.: aresta1(vértice1-vértice2)(peso)): ")
+        linha = open(arestas[i], 'r')
+        temp_a = linha.read()
+        linha.close()
         temp_g = temp_a.split(", ")
         nome_da_aresta = []
         vértice1 = []
@@ -65,17 +77,21 @@ while True:
     dic_pesos = {}
 
     if condition == 3:
+        condition = 1
         for x in temp_g:
             dic_grafo[x[0]] = x[1] + "-" + x[2]
             dic_pesos[x[1] + "-" + x[2]] = x[3]
         grafo = Grafo(vértices, dic_grafo, dic_pesos)
-        print(grafo)
+        grafos.append(grafo)
 
-    print(dic_grafo)
-    print(dic_pesos)
+    # print(dic_grafo)
+    # print(dic_pesos)
 
-    a = grafo.dijkstra("A", "B")
+    a = grafo.dijkstra("RuaCampoMaior", "AvenidaMaranhao")
     print(a)
+
+    # print(grafos[i])
+    print("--------------------------------------------------------")
 
     # a1(A-C)(10), a2(C-B)(20), a3(A-B)(100)
 
@@ -106,5 +122,3 @@ while True:
     # print("Matriz de alcançabilidade: ")
     # for i in range(len(warshall)):
     #     print(warshall[i])
-
-    break
