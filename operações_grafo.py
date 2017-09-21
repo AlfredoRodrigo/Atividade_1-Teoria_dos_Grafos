@@ -1,12 +1,13 @@
 from grafo import *
 
 condition = 1
-arestas = ["metroa.txt", "101a.txt", "270a.txt", "509a.txt", "703a.txt", "508a.txt", "601a.txt"]
-vertices = ["metrov.txt", "101v.txt", "270v.txt", "509v.txt", "703v.txt", "508v.txt", "601v.txt"]
+arestas = ["metroa.txt", "101a.txt", "270a.txt", "509a.txt", "703a.txt"] #"508a.txt", "601a.txt"
+vertices = ["metrov.txt", "101v.txt", "270v.txt", "509v.txt", "703v.txt"] #"508v.txt", "601v.txt"
 grafos = []
 estações = ["EstacaoEngenheiroAlbertoTavaresSilva", "EstacaoMatinha", "EstacaoFreiSerafim",
             "EstacaoIlhotas", "EstacaoBoaEsperanca", "EstacaoRenascenca",
             "EstacaoParqueIdeal", "DirceuII", "EstacaoTerminalItarare"]
+interseçãoComEstações = [[101, 270, 509],[101, 270],[],[],[],[],[],[509, 703],[509, 703]]
 
 for i in range(len(arestas)):
     while condition == 1:
@@ -87,11 +88,64 @@ for i in range(len(arestas)):
     # print(dic_grafo)
     # print(dic_pesos)
 
-    a = grafo.dijkstra("RuaCampoMaior", "AvenidaMaranhao")
-    print(a)
+def escolheMelhorOnibus(origem, destino):
+    listaDeTamanhos = []
+    listaDeCaminhos = []
+    menor = 1000000
+    menorCaminho = []
+    for x in range(len(grafos)):
+        tam = grafos[x].dijkstra(origem, destino)
+        if tam[0] > 0:
+            listaAux1 = []
+            listaAux1.append(tam[0])
+            listaAux1.append(x)
+            listaAux2 = []
+            listaAux2.append(x)
+            listaAux2.append(tam[1])
+            listaDeTamanhos.append(listaAux1)
+            listaDeCaminhos.append(listaAux2)
+            print(grafos[x])
+    for x in range(len(listaDeTamanhos)):
+        if listaDeTamanhos[x][0] < menor:
+            menor = listaDeTamanhos[x][0]
+            menorCaminho.append(listaDeTamanhos[x])
+            menorCaminho.append(listaDeCaminhos[x])
+    print(switch(menorCaminho[0][1])),
+    print(origem, "passando pela")
+    imprimeCaminho(menorCaminho[1], origem, 0)
+    # print(menorCaminho)
 
+def imprimeCaminho(argumento, origem, contador):
+    if len(argumento[1]) != 0:
+        contador += 1
+        imprimeCaminho(argumento[1], origem, contador)
+        contador -= 1
+    if (type(argumento[0]) != int and argumento[0] != None):
+        if contador > 2 and argumento[0] != origem:
+            print(argumento[0], ", ", end="")
+        elif contador > 1 and argumento[0] != origem:
+            print(argumento[0], end="")
+        elif argumento[0] != origem:
+            print(" e descer na", argumento[0])
+    return contador
+
+def switch(argumento):
+    print("Você deve pegar", end=" ")
+    switcher = {
+        0: "o metrô na",
+        1: "a linha de ônibus 101 na",
+        2: "a linha de ônibus 270 na",
+        3: "a linha de ônibus 509 na",
+        4: "a linha de ônibus 703 na"
+    }
+    return switcher.get(argumento, "nothing")
+
+escolheMelhorOnibus("AvenidaCamposSales", "AvenidaDezenovedeOutubro")
+
+    # a = grafo.dijkstra("EstacaoIlhotas", "EstacaoMatinha")
+    # print(a)
     # print(grafos[i])
-    print("--------------------------------------------------------")
+print("--------------------------------------------------------")
 
     # a1(A-C)(10), a2(C-B)(20), a3(A-B)(100)
 

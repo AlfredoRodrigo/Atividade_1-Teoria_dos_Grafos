@@ -48,24 +48,31 @@ class Grafo:
         # Exemplo: Se o grafo receber três vértices, A, B e C, e duas arestas, a1(A-B) e a2(B-C), então a lista
         # self.arestas receberá [[A, B], [B, C]].
         for x in A:
-            self.arestas.append(A[x].split("-"))
+            aresta = A[x].split("-")
+            auxiliar = [aresta[1], aresta[0]]
+            self.arestas.append(aresta)
+            self.arestas.append(auxiliar)
 
 
         self.arestas_valoradas = []
 
         for x in self.arestas:
             nome_aresta = str(x[0]) + "-" + str(x[1])
-            temp = []
+            temp1 = []
+            temp2 = []
             if nome_aresta in P:
-                temp.append(x[0])
-                temp.append(x[1])
-                temp.append(P[nome_aresta])
-                temp[2] = int(temp[2])
-                tupla = tuple(temp)
-                self.arestas_valoradas.append(tupla)
-
-        print("AQUI")
-        print(self.arestas_valoradas)
+                temp1.append(x[0])
+                temp1.append(x[1])
+                temp1.append(P[nome_aresta])
+                temp1[2] = int(temp1[2])
+                tupla1 = tuple(temp1)
+                temp2.append(x[1])
+                temp2.append(x[0])
+                temp2.append(P[nome_aresta])
+                temp2[2] = int(temp2[2])
+                tupla2 = tuple(temp2)
+                self.arestas_valoradas.append(tupla1)
+                self.arestas_valoradas.append(tupla2)
 
         # Cria uma lista self.comb com todas as combinações possíveis de ligações dos vértices
         # passados como parâmetro ao grafo. Exemplo: Se o grafo receber dois vértices, A e B, será criada uma
@@ -268,20 +275,20 @@ class Grafo:
     def dijkstra(self, v_inicio, v_destino):
         g = defaultdict(list)
         for l, r, c in self.arestas_valoradas:
-            g[l].append((c, r))
-        q, seen = [(0, v_inicio, ())], set()
+            g[l].append([c, r])
+        q, seen = [[0, v_inicio, []]], set()
         while q:
-            (cost, v1, path) = heappop(q)
+            [cost, v1, path] = heappop(q)
             if v1 not in seen:
                 seen.add(v1)
-                path = (v1, path)
+                path = [v1, path]
                 if v1 == v_destino:
-                    return (cost, path)
-                for c, v2 in g.get(v1, ()):
+                    return [cost, path]
+                for c, v2 in g.get(v1, []):
                     if v2 not in seen:
-                        heappush(q, (cost + c, v2, path))
+                        heappush(q, [cost + c, v2, path])
 
-        return float("inf")
+        return [0, "Sem caminho"]
 
     @classmethod
     def verticeValido(self, vertice=''):
